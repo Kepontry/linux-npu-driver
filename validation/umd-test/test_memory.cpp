@@ -37,7 +37,9 @@ INSTANTIATE_TEST_SUITE_P(Sizes,
                                            16 * MB,
                                            64 * MB,
                                            128 * MB,
-                                           255 * MB),
+                                           255 * MB,
+                                           256 * MB,
+                                           511 * MB,),
                          [](const testing::TestParamInfo<uint64_t> &cmd) {
                              return memSizeToStr(cmd.param);
                          });
