@@ -39,7 +39,7 @@ INSTANTIATE_TEST_SUITE_P(Sizes,
                                            128 * MB,
                                            255 * MB,
                                            256 * MB,
-                                           511 * MB,),
+                                           2048 * MB),
                          [](const testing::TestParamInfo<uint64_t> &cmd) {
                              return memSizeToStr(cmd.param);
                          });
@@ -167,8 +167,9 @@ INSTANTIATE_TEST_SUITE_P(Sizes,
                          ::testing::Values(2 * KB, // force line break
                                            16 * MB,
                                            63 * MB, // -1MB to save space for command buffer
-                                           126 * MB // -1MB to save space for command buffer
-                                           ),
+                                           126 * MB, // -1MB to save space for command buffer
+                                           1024 * MB
+					   ),
                          [](const testing::TestParamInfo<uint64_t> &cmd) {
                              return memSizeToStr(cmd.param);
                          });
