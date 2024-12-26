@@ -203,6 +203,9 @@ ze_result_t zeMemAllocHost(ze_context_handle_t hContext,
         goto exit;
     }
 
+    
+    LOG(DEVICE, "zeMemAllocHost: flagsHost %d\n", hostDesc->flags);
+
     if (hostDesc->pNext)
         extendedAllocType = *reinterpret_cast<const ze_structure_type_t *>(hostDesc->pNext);
 
