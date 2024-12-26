@@ -58,7 +58,7 @@ TEST_P(MemoryAllocation, AllocHostMemory) {
 
 TEST_P(MemoryAllocation, AllocFwMemory) {
     uint64_t size = GetParam();
-    auto mem = AllocHostMemory(size, VPU::VPUBufferObject::Type::CachedFw);
+    auto mem = AllocHostMemory(size, 2);
     ASSERT_TRUE(mem.get()) << "Failed to allocate host memory using size " << size;
 }
 
