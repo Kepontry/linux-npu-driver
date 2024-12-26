@@ -19,6 +19,7 @@
 namespace L0 {
 
 static VPU::VPUBufferObject::Type flagToBufferObjectType(ze_host_mem_alloc_flags_t flag) {
+    LOG("flagToBufferObjectType %s: flag %d\n", __FILE__, flag);
     switch (flag) {
     case ZE_HOST_MEM_ALLOC_FLAG_BIAS_CACHED:
         return VPU::VPUBufferObject::Type::CachedDma;
