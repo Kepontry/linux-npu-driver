@@ -161,6 +161,9 @@ ze_result_t zeMemAllocHost(ze_context_handle_t hContext,
         return ZE_RESULT_ERROR_INVALID_NULL_POINTER;
     }
 
+    
+    LOG(DEVICE, "zeMemAllocHost: flagsHost %d\n", hostDesc->flags);
+
     ze_structure_type_t extendedAllocType =
         hostDesc->pNext ? *reinterpret_cast<const ze_structure_type_t *>(hostDesc->pNext)
                         : ZE_STRUCTURE_TYPE_FORCE_UINT32;

@@ -141,6 +141,7 @@ std::shared_ptr<void> UmdTest::AllocDeviceMemory(size_t size) {
 }
 
 std::shared_ptr<void> UmdTest::AllocHostMemory(size_t size, ze_host_mem_alloc_flags_t flagsHost) {
+    LOG(DEVICE, "AllocHostMemory: flagsHost %d\n", flagsHost);
     return zeMemory::allocHost(zeContext, size, flagsHost);
 }
 
