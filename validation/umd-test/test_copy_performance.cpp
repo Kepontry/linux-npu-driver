@@ -329,7 +329,7 @@ TEST_P(CommandCopyFlag, MeasureCommandCopyUsingTimestamp) {
            static_cast<long long>(timestamp * timestampFreq));
 }
 
-TEST_P(CommandCopyFlag, MeasureTest) {
+TEST_P(CommandCopyFlag, MeasureTLB) {
     uint64_t timestamp = 0u;
     auto [allocSize, numOfCopyCommands, allocationControls] = GetParam();
 
@@ -342,7 +342,9 @@ TEST_P(CommandCopyFlag, MeasureTest) {
 
         src.push_back(srcMem.back().get());
         dst.push_back(dstMem.back().get());
-
+        PRINTF("\nVPU device's timestamp value for %u Copy Command(s) in nanoseconds: %lld [ns]\n\n",
+            numOfCopyCommands,
+            static_cast<long long>(timestamp * timestampFreq));
         memset(src.back(), 0xAB, allocSize);
     }
 
@@ -365,8 +367,21 @@ TEST_P(CommandCopyFlag, MeasureTest) {
     auto tsMem = AllocSharedMemory(size * 2);
     uint64_t *ts = static_cast<uint64_t *>(tsMem.get());
 
+    int SIZE_TEST = 100
+    auto tsMem2 = AllocSharedMemory(size * SIZE_TEST);
+    uint64_t *ts2 = static_cast<uint64_t *>(tsMem2.get());
+    for (int i = 0; i < SIZE_TEST; i++)
+        *ts2++ = i;
+    auto tsMem3 = AllocSharedMemory(size * SIZE_TEST);
+    uint64_t *ts3 = static_cast<uint64_t *>(tsMem3.get());
+    ASSERT_EQ(
+        zeCommandListAppendMemoryCopy(list, tsMem3, tsMem2, size * SIZE_TEST, nullptr, 0, nullptr),
+        ZE_RESULT_SUCCESS);
+
     ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts, nullptr, 0, nullptr),
               ZE_RESULT_SUCCESS);
+    for (int i = 0; i < SIZE_TEST; i++)
+        printf("%d", *ts3++);
 
     for (uint32_t j = 0; j < numOfCopyCommands; j++) {
         ASSERT_EQ(
