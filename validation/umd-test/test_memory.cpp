@@ -56,6 +56,9 @@ TEST_P(MemoryAllocation, AllocDeviceMemory) {
 TEST_P(MemoryAllocation, AllocHostMemory) {
     uint64_t size = GetParam();
     auto mem = AllocHostMemory(size);
+    // auto mem = AllocHostMemory(size,ZE_HOST_MEM_ALLOC_FLAG_BIAS_UNCACHED);
+    // auto mem = AllocHostMemory(size,ZE_HOST_MEM_ALLOC_FLAG_BIAS_CACHED);
+    // sleep(20);
     ASSERT_TRUE(mem.get()) << "Failed to allocate host memory using size " << size;
 }
 

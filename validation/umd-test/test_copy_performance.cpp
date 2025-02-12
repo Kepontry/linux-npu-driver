@@ -414,6 +414,132 @@ TEST_P(CommandCopyFlag, MeasureTLB) {
            static_cast<long long>(timestamp * timestampFreq));
 }
 
+class PageAccessFlag
+    : public UmdTest,
+      public ::testing::WithParamInterface<std::tuple<uint64_t, uint32_t, AllocationControls>> {
+  public:
+    ze_command_queue_desc_t cmdQueueDesc{.stype = ZE_STRUCTURE_TYPE_COMMAND_QUEUE_DESC,
+                                         .pNext = nullptr,
+                                         .ordinal = 0,
+                                         .index = 0,
+                                         .flags = 0,
+                                         .mode = ZE_COMMAND_QUEUE_MODE_DEFAULT,
+                                         .priority = ZE_COMMAND_QUEUE_PRIORITY_NORMAL};
+
+    ze_command_list_desc_t cmdListDesc = {.stype = ZE_STRUCTURE_TYPE_COMMAND_LIST_DESC,
+                                          .pNext = nullptr,
+                                          .commandQueueGroupOrdinal = 0,
+                                          .flags = 0};
+};
+
+INSTANTIATE_TEST_SUITE_P(
+    SystemToSystem,
+    PageAccessFlag,
+    ::testing::Combine(::testing::Values(4 * KB), // allocation size
+                    //    ::testing::Values(16,24,32,40,48,56,64),        // number of copy commands in command list
+                       ::testing::Values(16,32,64,128,256,512,1024),        // number of copy commands in command list
+                       ::testing::Values(
+                                        //  AllocationControls{ZE_HOST_MEM_ALLOC_FLAG_BIAS_CACHED,
+                                                            // ZE_HOST_MEM_ALLOC_FLAG_BIAS_CACHED}
+                                        // ,
+                                         AllocationControls{
+                                             ZE_HOST_MEM_ALLOC_FLAG_BIAS_UNCACHED,
+                                             ZE_HOST_MEM_ALLOC_FLAG_BIAS_UNCACHED}
+                                        )),
+    [](const testing::TestParamInfo<std::tuple<uint64_t, uint32_t, AllocationControls>> &info) {
+        std::string str = "Page_DMA_Size_" + memSizeToStr(std::get<0>(info.param)) + "_Commands_";
+        str = str.append(std::to_string(std::get<1>(info.param))) + "_";
+
+        auto allocationControls = std::get<2>(info.param);
+
+        if (allocationControls.srcHostFlag == ZE_HOST_MEM_ALLOC_FLAG_BIAS_CACHED) {
+            str += std::string("Cached_");
+        } else {
+            str += std::string("UnCached_");
+        }
+
+        if (allocationControls.dstHostFlag == ZE_HOST_MEM_ALLOC_FLAG_BIAS_CACHED) {
+            str += std::string("_Cached");
+        } else {
+            str += std::string("_UnCached");
+        }
+        return str;
+    });
+
+TEST_P(PageAccessFlag, PageAccess) {
+    uint64_t timestamp = 0u;
+    uint32_t round = 100;
+    auto [allocSize, numOfCopyCommands, allocationControls] = GetParam();
+
+    std::vector<std::shared_ptr<void>> srcMem, dstMem;
+    std::vector<void *> src, dst;
+
+    for (uint32_t i = 0; i < numOfCopyCommands; i++) {
+        srcMem.push_back(AllocHostMemory(allocSize, allocationControls.srcHostFlag));
+        dstMem.push_back(AllocHostMemory(allocSize, allocationControls.dstHostFlag));
+
+        src.push_back(srcMem.back().get());
+        dst.push_back(dstMem.back().get());
+
+        memset(src.back(), 0xAB, allocSize);
+    }
+
+    ze_device_properties_t devProp = {};
+    devProp.stype = ZE_STRUCTURE_TYPE_DEVICE_PROPERTIES;
+
+    ASSERT_EQ(zeDeviceGetProperties(zeDevice, &devProp), ZE_RESULT_SUCCESS);
+    uint64_t timestampFreq = devProp.timerResolution;
+    // printf("timestampFreq: %ld\n", timestampFreq);
+
+    ze_result_t ret;
+    auto scopedQueue = zeScope::commandQueueCreate(zeContext, zeDevice, cmdQueueDesc, ret);
+    ASSERT_EQ(ret, ZE_RESULT_SUCCESS);
+    auto queue = scopedQueue.get();
+
+    auto scopedList = zeScope::commandListCreate(zeContext, zeDevice, cmdListDesc, ret);
+    ASSERT_EQ(ret, ZE_RESULT_SUCCESS);
+    auto list = scopedList.get();
+
+    const size_t size = sizeof(uint64_t);
+    auto tsMem = AllocSharedMemory(size * 2);
+    uint64_t *ts = static_cast<uint64_t *>(tsMem.get());
+
+    ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts, nullptr, 0, nullptr),
+              ZE_RESULT_SUCCESS);
+
+    for (uint32_t k = 0; k < round; k++) {
+        for (uint32_t j = 0; j < numOfCopyCommands; j++) {
+            ASSERT_EQ(
+                // zeCommandListAppendMemoryCopy(list, dst[j], src[j], allocSize, nullptr, 0, nullptr),
+                zeCommandListAppendMemoryCopy(list, dst[j], src[j], 64, nullptr, 0, nullptr),
+                ZE_RESULT_SUCCESS);
+        }
+    }
+
+    ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts + 1, nullptr, 0, nullptr),
+              ZE_RESULT_SUCCESS);
+
+    ASSERT_EQ(zeCommandListClose(list), ZE_RESULT_SUCCESS);
+
+    ASSERT_EQ(zeCommandQueueExecuteCommandLists(queue, 1, &list, nullptr), ZE_RESULT_SUCCESS);
+
+    ASSERT_EQ(zeCommandQueueSynchronize(queue, syncTimeout), ZE_RESULT_SUCCESS);
+
+    ASSERT_LT(*ts, *(ts + 1));
+
+    timestamp = *(ts + 1) - *ts;
+
+    // PRINTF("\nVPU device's timestamp value for %u Copy Command(s): %lld [VPU clock units]\n",
+    //        numOfCopyCommands,
+    //        static_cast<long long>(timestamp));
+
+    PRINTF("\nVPU device's timestamp value for 1 Copy Command(s): %lld [VPU clock units]\n\n",
+           static_cast<long long>(timestamp / numOfCopyCommands / round));
+
+    PRINTF("\nVPU device's timestamp value for 1 Copy Command(s) in nanoseconds: %lld [ns]\n\n",
+           static_cast<long long>(timestamp * timestampFreq/ numOfCopyCommands / round));
+}
+
 TEST_P(CommandCopyFlag, MeasureCommandCopyUsingHostTime) {
     std::chrono::steady_clock::time_point start_time, stop_time;
     auto [allocSize, numOfCopyCommands, allocationControls] = GetParam();
