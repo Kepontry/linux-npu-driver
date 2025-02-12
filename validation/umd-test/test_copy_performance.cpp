@@ -342,9 +342,7 @@ TEST_P(CommandCopyFlag, MeasureTLB) {
 
         src.push_back(srcMem.back().get());
         dst.push_back(dstMem.back().get());
-        PRINTF("\nVPU device's timestamp value for %u Copy Command(s) in nanoseconds: %lld [ns]\n\n",
-            numOfCopyCommands,
-            static_cast<long long>(timestamp * timestampFreq));
+
         memset(src.back(), 0xAB, allocSize);
     }
 
@@ -367,21 +365,23 @@ TEST_P(CommandCopyFlag, MeasureTLB) {
     auto tsMem = AllocSharedMemory(size * 2);
     uint64_t *ts = static_cast<uint64_t *>(tsMem.get());
 
-    int SIZE_TEST = 100
-    auto tsMem2 = AllocSharedMemory(size * SIZE_TEST);
+    int SIZE_TEST = 100;
+    // auto tsMem2 = AllocSharedMemory(size * SIZE_TEST);
+    // auto tsMem2 = AllocHostMemory(size * SIZE_TEST);
+    auto tsMem2 = AllocDeviceMemory(size * SIZE_TEST);
     uint64_t *ts2 = static_cast<uint64_t *>(tsMem2.get());
     for (int i = 0; i < SIZE_TEST; i++)
         *ts2++ = i;
-    auto tsMem3 = AllocSharedMemory(size * SIZE_TEST);
+    // auto tsMem3 = AllocSharedMemory(size * SIZE_TEST);
+    // auto tsMem3 = AllocHostMemory(size * SIZE_TEST);
+    auto tsMem3 = AllocDeviceMemory(size * SIZE_TEST);
     uint64_t *ts3 = static_cast<uint64_t *>(tsMem3.get());
     ASSERT_EQ(
-        zeCommandListAppendMemoryCopy(list, tsMem3, tsMem2, size * SIZE_TEST, nullptr, 0, nullptr),
+        zeCommandListAppendMemoryCopy(list, tsMem3.get(), tsMem2.get(), size * SIZE_TEST, nullptr, 0, nullptr),
         ZE_RESULT_SUCCESS);
 
     ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts, nullptr, 0, nullptr),
               ZE_RESULT_SUCCESS);
-    for (int i = 0; i < SIZE_TEST; i++)
-        printf("%d", *ts3++);
 
     for (uint32_t j = 0; j < numOfCopyCommands; j++) {
         ASSERT_EQ(
@@ -397,6 +397,9 @@ TEST_P(CommandCopyFlag, MeasureTLB) {
     ASSERT_EQ(zeCommandQueueExecuteCommandLists(queue, 1, &list, nullptr), ZE_RESULT_SUCCESS);
 
     ASSERT_EQ(zeCommandQueueSynchronize(queue, syncTimeout), ZE_RESULT_SUCCESS);
+
+    for (int i = 0; i < SIZE_TEST; i++)
+        printf("%ld\n", *ts3++);
 
     ASSERT_LT(*ts, *(ts + 1));
 
