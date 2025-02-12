@@ -376,6 +376,7 @@ ze_result_t CommandList::appendWriteGlobalTimestamp(uint64_t *dstptr,
 
     auto allignedBo =
         ctx->createInternalBufferObject(sizeof(uint64_t), VPU::VPUBufferObject::Type::CachedFw);
+        // ctx->createInternalBufferObject(sizeof(uint64_t), VPU::VPUBufferObject::Type::CachedDma);
 
     if (allignedBo == nullptr) {
         LOG_E("Failed to allocate memory");

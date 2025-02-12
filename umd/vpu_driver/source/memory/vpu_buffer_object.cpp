@@ -62,6 +62,7 @@ std::unique_ptr<VPUBufferObject>
 VPUBufferObject::create(const VPUDriverApi &drvApi, Location type, Type range, size_t size) {
     uint32_t handle = 0;
     uint64_t vpuAddr = 0;
+    LOG(DEVICE, "VPUBufferObject::create: location %u, range: %u, size: %lu\n", static_cast<uint32_t>(type), static_cast<uint32_t>(range), size);
     if (drvApi.createBuffer(size, static_cast<uint32_t>(range), handle, vpuAddr)) {
         LOG_E("Failed to allocate memory");
         return nullptr;

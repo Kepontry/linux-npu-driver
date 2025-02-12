@@ -57,7 +57,7 @@ TEST_F(ExternalMemory, GetExternalMemoryProperties) {
 
 INSTANTIATE_TEST_SUITE_P(,
                          ExternalMemory,
-                         ::testing::Values(2 * KB, 16 * MB, 255 * MB),
+                         ::testing::Values(2 * KB, 16 * MB, 255 * MB, 8193 * MB),
                          [](const testing::TestParamInfo<uint64_t> &cmd) {
                              return memSizeToStr(cmd.param);
                          });

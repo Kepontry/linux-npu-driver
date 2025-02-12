@@ -25,7 +25,8 @@ static VPU::VPUBufferObject::Type flagToBufferObjectType(ze_host_mem_alloc_flags
     case ZE_HOST_MEM_ALLOC_FLAG_BIAS_CACHED:
         return VPU::VPUBufferObject::Type::CachedDma;
     case ZE_HOST_MEM_ALLOC_FLAG_BIAS_UNCACHED:
-        return VPU::VPUBufferObject::Type::UncachedDma;
+        // return VPU::VPUBufferObject::Type::UncachedDma;
+        return VPU::VPUBufferObject::Type::CachedFw;
     case ZE_HOST_MEM_ALLOC_FLAG_BIAS_WRITE_COMBINED:
         return VPU::VPUBufferObject::Type::WriteCombineDma;
     };

@@ -42,6 +42,8 @@ class InferencePerformance : public UmdTest, public ::testing::WithParamInterfac
         scopedList = zeScope::commandListCreate(zeContext, zeDevice, cmdListDesc, ret);
         ASSERT_EQ(ret, ZE_RESULT_SUCCESS);
         list = scopedList.get();
+        std::vector<YAML::Node> configs = Environment::getConfiguration("graph_execution");
+        PRINTF("Number of test cases: %zu\n", configs.size());
     }
 
     InferenceDuration sectionDuration(std::chrono::steady_clock::time_point &start) {
@@ -74,6 +76,8 @@ TEST_P(InferencePerformance, MeasureTimeBetweenTwoInferencesAfterPutVPUInIdleSta
         Graph::create(zeContext, zeDevice, zeGraphDDITableExt, globalConfig, node);
 
     graph->allocateArguments(MemType::HOST_MEMORY);
+    // graph->allocateArguments(MemType::DEVICE_MEMORY);
+    // graph->allocateArguments(MemType::SHARED_MEMORY);
 
     graph->copyInputData();
 

@@ -37,8 +37,11 @@ INSTANTIATE_TEST_SUITE_P(Sizes,
                                            16 * MB,
                                            64 * MB,
                                            128 * MB,
+                                           129 * MB,
+                                           254 * MB,
                                            255 * MB,
-                                           256 * MB,
+                                           8192 * MB,
+                                           8193 * MB,
                                            2048 * MB),
                          [](const testing::TestParamInfo<uint64_t> &cmd) {
                              return memSizeToStr(cmd.param);
@@ -59,7 +62,9 @@ TEST_P(MemoryAllocation, AllocHostMemory) {
 TEST_P(MemoryAllocation, AllocFwMemory) {
     uint64_t size = GetParam();
     auto mem = AllocHostMemory(size, 2);
+    auto mem2 = AllocHostMemory(size, 2);
     ASSERT_TRUE(mem.get()) << "Failed to allocate host memory using size " << size;
+    ASSERT_TRUE(mem2.get()) << "Failed to allocate host memory using size " << size;
 }
 
 TEST_F(MemoryAllocation, QueryContextMemory) {

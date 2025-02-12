@@ -1,0 +1,344 @@
+Note: Google Test filter = InferencePerformance.MeasureTimeBetweenTwoInferencesAfterPutVPUInIdleState/add_abc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+NPU_LOG: [DRIVER][driver.cpp:91] OS interface updated
+NPU_LOG: [DEVICE][os_interface.cpp:21] OS interface set.
+NPU_LOG: [CACHE][disk_cache.cpp:85] Cache is initialized, path: /home/chenlab/.cache/ze_intel_npu_cache, max size: 1073741824
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_VERSION
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_VERSION
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_DEVICE_ID
+NPU_LOG: [DEVICE][vpu_device.cpp:34] PCI device ID: 0x643e
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_DEVICE_REVISION
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_NUM_CONTEXTS
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_CORE_CLOCK_RATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_PLATFORM_TYPE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_CONTEXT_BASE_ADDRESS
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_FW_API_VERSION
+NPU_LOG: [DEVICE][vpu_device.cpp:45] Base address of device is 0x80000000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_TILE_CONFIG
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] ?
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_CAPABILITIES
+NPU_LOG: *WARNING* [vpu_driver_api.cpp:187] Capability from index: 0x1 is not set
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_CAPABILITIES
+NPU_LOG: [MISC][vpu_driver_api.cpp:191] Capability from index: 0x2 is set
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_FW_API_VERSION
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_FW_API_VERSION
+NPU_LOG: [DEVICE][vpu_device.cpp:248] VPU device initialized successfully (/dev/accel/accel0)
+NPU_LOG: [DRIVER][driver.cpp:102] 1 VPU device(s) found.
+NPU_LOG: [DEVICE][device.cpp:542] Number of metric groups: 0
+NPU_LOG: [DRIVER][driver_handle.cpp:99] Update numDevices with '1'.
+NPU_LOG: [MISC][driver.cpp:75] Driver version: NPU version: npu-linux-driver-dev-1.10.0.dev-0
+NPU_LOG: [MISC][driver.cpp:76] CiD version: 6.1(2024.5.0-16934-0ebff040fd2-1107.210035-DCI-4f89b7c000d.6.1)
+NPU_LOG: [MISC][driver.cpp:79] Device JSM version: 4.6
+NPU_LOG: [MISC][driver.cpp:80] Device NNRT version: 11.4
+NPU_LOG: [DRIVER][driver.cpp:114] Driver init status to 0
+NPU_LOG: [DRIVER][driver.cpp:70] Current driver init status is 0
+NPU_LOG: [DRIVER][driver.cpp:160] Updating driver init status to 0
+NPU_LOG: [DRIVER][driver.cpp:70] Current driver init status is 0
+NPU_LOG: [DRIVER][driver.cpp:114] Driver init status to 0
+NPU_LOG: [DRIVER][driver.cpp:70] Current driver init status is 0
+NPU_LOG: [DRIVER][driver.cpp:160] Updating driver init status to 0
+NPU_LOG: [DRIVER][driver.cpp:70] Current driver init status is 0
+NPU_LOG: [DRIVER][driver.cpp:70] Current driver init status is 0
+NPU_LOG: [DRIVER][driver.cpp:70] Current driver init status is 0
+NPU_LOG: [DEVICE][device.cpp:167] Returning device properties
+NPU_LOG: [DRIVER][ze_driver.cpp:182] Return DDI table for extension: ZE_extension_graph
+NPU_LOG: [DRIVER][ze_driver.cpp:125] Return DDI table for extension: ZE_extension_profiling_data
+NPU_LOG: [DRIVER][ze_driver.cpp:134] Return DDI table for extension: ZE_extension_command_queue_npu
+[----------] 1 test from InferencePerformance
+[ RUN      ] InferencePerformance.MeasureTimeBetweenTwoInferencesAfterPutVPUInIdleState/add_abc
+NPU_LOG: [DEVICE][vpu_device_context.cpp:34] VPUDeviceContext is created
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:87] CommandQueue created - 0x60aef4847c20
+NPU_LOG: [CMDLIST][cmdlist.cpp:84] CommandList created - 0x60aef4841970
+NPU_LOG: [GRAPH][graph.cpp:394] ze_graph_desc_2_t = format: 0x2, pInput: 0x60aef4835ba0, inputSize: 1807, flags: 0, pBuildFlags: --inputs_precisions="A:fp16 B:fp16 C:fp16" --inputs_layouts="A:C B:C C:C" --outputs_precisions="Y:fp16" --outputs_layouts="Y:C"
+NPU_LOG: [CACHE][disk_cache.cpp:125] Cache hit using c58e52e1fee3b582413ba1f0ea8abe8c4120abda key
+NPU_LOG: [GRAPH][graph.cpp:435] Detected Elf format
+NPU_LOG: [GRAPH][graph.cpp:74] Graph created - 0x60aef4838800
+NPU_LOG: [DEVICE][ze_memory.cpp:166] zeMemAllocHost: flagsHost 0
+
+NPU_LOG: [DEVICE][ze_memory.cpp:22] flagToBufferObjectType: flag 0
+
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 2, range: 6, size: 2
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef4876930, cpu: 0x785bc719f000, vpu: 0x200000000
+NPU_LOG: [DEVICE][ze_memory.cpp:166] zeMemAllocHost: flagsHost 0
+
+NPU_LOG: [DEVICE][ze_memory.cpp:22] flagToBufferObjectType: flag 0
+
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 2, range: 6, size: 2
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef4880760, cpu: 0x785bc719e000, vpu: 0x200001000
+NPU_LOG: [DEVICE][ze_memory.cpp:166] zeMemAllocHost: flagsHost 0
+
+NPU_LOG: [DEVICE][ze_memory.cpp:22] flagToBufferObjectType: flag 0
+
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 2, range: 6, size: 2
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef4889230, cpu: 0x785bc719d000, vpu: 0x200002000
+NPU_LOG: [DEVICE][ze_memory.cpp:166] zeMemAllocHost: flagsHost 0
+
+NPU_LOG: [DEVICE][ze_memory.cpp:22] flagToBufferObjectType: flag 0
+
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 2, range: 6, size: 2
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef48892e0, cpu: 0x785bc719c000, vpu: 0x200003000
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0, alignment: 0x40, procFlags: 0x20000003
+NPU_LOG: [GRAPH][elf_parser.cpp:72] WA for buffSpecs.size == 0 -> set size to 1
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 1
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef4889960, cpu: 0x785bc719b000, vpu: 0x200004000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc719b000, vpu_addr: 0x200004000, size: 0x1
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x980, alignment: 0x40, procFlags: 0x6
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131074, size: 2432
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef4889ff0, cpu: 0x785bc719a000, vpu: 0x80000000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc719a000, vpu_addr: 0x80000000, size: 0x980
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc719a000, to.vpu_addr: 0x80000000 from: 0x60aef489c280, count: 0x980
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x78, alignment: 0x40, procFlags: 0x6
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131074, size: 120
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef488a070, cpu: 0x785bc7199000, vpu: 0x80001000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc7199000, vpu_addr: 0x80001000, size: 0x78
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc7199000, to.vpu_addr: 0x80001000 from: 0x785bc71aac40, count: 0x78
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x2c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 704
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489d100, cpu: 0x785bc7198000, vpu: 0x200005000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc7198000, vpu_addr: 0x200005000, size: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc7198000, to.vpu_addr: 0x200005000 from: 0x60aef489cd80, count: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x2c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 704
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489d5a0, cpu: 0x785bc7197000, vpu: 0x200006000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc7197000, vpu_addr: 0x200006000, size: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc7197000, to.vpu_addr: 0x200006000 from: 0x60aef489d240, count: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x2c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 704
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489da40, cpu: 0x785bc5c2c000, vpu: 0x200007000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc5c2c000, vpu_addr: 0x200007000, size: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc5c2c000, to.vpu_addr: 0x200007000 from: 0x60aef489d6c0, count: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x2c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 704
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489dee0, cpu: 0x785bc55d7000, vpu: 0x200008000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc55d7000, vpu_addr: 0x200008000, size: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc55d7000, to.vpu_addr: 0x200008000 from: 0x60aef489db80, count: 0x2c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x1c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 448
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489e070, cpu: 0x785bc1d08000, vpu: 0x200009000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc1d08000, vpu_addr: 0x200009000, size: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc1d08000, to.vpu_addr: 0x200009000 from: 0x60aef486e5c0, count: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x1c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 448
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489e200, cpu: 0x785bc03c2000, vpu: 0x20000a000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bc03c2000, vpu_addr: 0x20000a000, size: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bc03c2000, to.vpu_addr: 0x20000a000 from: 0x60aef4848540, count: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x1c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 448
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489e390, cpu: 0x785bbe98f000, vpu: 0x20000b000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bbe98f000, vpu_addr: 0x20000b000, size: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bbe98f000, to.vpu_addr: 0x20000b000 from: 0x60aef3f07c40, count: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x1c0, alignment: 0x40, procFlags: 0x20000002
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131078, size: 448
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489e520, cpu: 0x785bbe98e000, vpu: 0x20000c000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bbe98e000, vpu_addr: 0x20000c000, size: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bbe98e000, to.vpu_addr: 0x20000c000 from: 0x60aef3f05f00, count: 0x1c0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0xa80, alignment: 0x40, procFlags: 0x20000006
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131074, size: 2688
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489f180, cpu: 0x785bbe98d000, vpu: 0x80002000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bbe98d000, vpu_addr: 0x80002000, size: 0xa80
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bbe98d000, to.vpu_addr: 0x80002000 from: 0x60aef489e640, count: 0xa80
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0xe0, alignment: 0x40, procFlags: 0x20000006
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131074, size: 224
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489f460, cpu: 0x785bbe98c000, vpu: 0x80003000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bbe98c000, vpu_addr: 0x80003000, size: 0xe0
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bbe98c000, to.vpu_addr: 0x80003000 from: 0x60aef489f2c0, count: 0xe0
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x180, alignment: 0x40, procFlags: 0x6
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131074, size: 384
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489f7c0, cpu: 0x785bbe98b000, vpu: 0x80004000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bbe98b000, vpu_addr: 0x80004000, size: 0x180
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bbe98b000, to.vpu_addr: 0x80004000 from: 0x60aef489f580, count: 0x180
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x14, alignment: 0x40, procFlags: 0x6
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131074, size: 20
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef489f890, cpu: 0x785bbe98a000, vpu: 0x80005000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bbe98a000, vpu_addr: 0x80005000, size: 0x14
+NPU_LOG: [GRAPH][elf_parser.cpp:105] Copy to.cpu_addr: 0x785bbe98a000, to.vpu_addr: 0x80005000 from: 0x785bc71acbc0, count: 0x14
+NPU_LOG: [GRAPH][elf_parser.cpp:64] Allocate: size: 0x180, alignment: 0x40, procFlags: 0x4
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 131074, size: 384
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef4889460, cpu: 0x785bbe989000, vpu: 0x80006000
+NPU_LOG: [GRAPH][elf_parser.cpp:83] Allocated: cpu_addr: 0x785bbe989000, vpu_addr: 0x80006000, size: 0x180
+NPU_LOG: [VPU_JOB][vpu_job.cpp:143] Command is empty, skipping it
+NPU_LOG: [CMDLIST][cmdlist.cpp:412] Successfully appended graph initialize command to CommandList
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:88] DRM_IOCTL_IVPU_GET_PARAM::DRM_IVPU_PARAM_UNIQUE_INFERENCE_ID
+NPU_LOG: [DEVICE][vpu_device_context.cpp:189] CPU address 0x785bc719f000 mapped to VPU address 0x200000000
+NPU_LOG: [DEVICE][vpu_device_context.cpp:189] CPU address 0x785bc719e000 mapped to VPU address 0x200001000
+NPU_LOG: [DEVICE][vpu_device_context.cpp:189] CPU address 0x785bc719d000 mapped to VPU address 0x200002000
+NPU_LOG: [DEVICE][vpu_device_context.cpp:189] CPU address 0x785bc719c000 mapped to VPU address 0x200003000
+NPU_LOG: [CMDLIST][cmdlist.cpp:485] Successfully appended graph execute command to CommandList
+NPU_LOG: [VPU_JOB][vpu_job.cpp:51] Schedule commands, number of commands 1
+NPU_LOG: [VPU_JOB][vpu_job.cpp:58] Passing 1 commands to command buffer
+NPU_LOG: [DEVICE][vpu_buffer_object.cpp:62] VPUBufferObject::create: location 1, range: 2, size: 384
+
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_CREATE
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_INFO
+NPU_LOG: [DEVICE][vpu_device_context.cpp:81] Create BO: 0x60aef48a1b50, cpu: 0x785bbe988000, vpu: 0x80007000
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:183] Attempting append a command 0x306 (size: 160) to command buffer
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:208] Command appended to command buffer: cmdOffset: 192
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:292] Start compute command buffer printing:
+	Command buffer ptr cpu = 0x785bbe988000, vpu = 0x80007000
+	Size = 352 bytes, commands offset 192
+	Kernel heap addr = 0x80000000
+	Descriptor heap addr = 0x80000000
+	Fence heap addr = 0x80000000
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:392] Command 0: Inference Execute (size 160 bytes)
+	inference_id = 3, host_mapped_inference.address = 0x80006000, host_mapped_inference.size = 0x180
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:418] Stop compute command buffer printing
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:139] CommandQueue Execute - 0x60aef4847c20
+NPU_LOG: [DEVICE][vpu_device_context.cpp:201] Submit VPUCommandBuffer: 0x60aef4889390, params -> engine: 0, flags: 0, offset: 0, count: 20, ptr: 0x60aef48a19c0, prior: 2
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_SUBMIT
+NPU_LOG: [DEVICE][vpu_device_context.cpp:253] Buffer execution successfully triggered
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:187] VPUJob 0x60aef4846bd0 submitted
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:208] CommandQueue synchronize - 0x60aef4847c20
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_WAIT
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:239] Wait completed: ret = 0, errno = 2, commandBuffer: 0x60aef4889390
+NPU_LOG: [VPU_JOB][vpu_job.cpp:120] Compute command buffer (0x60aef4889390): execution is completed with success
+Inference #0 took: 1.743075 ms
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:139] CommandQueue Execute - 0x60aef4847c20
+NPU_LOG: [DEVICE][vpu_device_context.cpp:201] Submit VPUCommandBuffer: 0x60aef4889390, params -> engine: 0, flags: 0, offset: 0, count: 20, ptr: 0x60aef48a19c0, prior: 2
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_SUBMIT
+NPU_LOG: [DEVICE][vpu_device_context.cpp:253] Buffer execution successfully triggered
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:187] VPUJob 0x60aef4846bd0 submitted
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:208] CommandQueue synchronize - 0x60aef4847c20
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_WAIT
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:239] Wait completed: ret = 0, errno = 2, commandBuffer: 0x60aef4889390
+NPU_LOG: [VPU_JOB][vpu_job.cpp:120] Compute command buffer (0x60aef4889390): execution is completed with success
+Inference #1 took: 0.183509 ms
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:139] CommandQueue Execute - 0x60aef4847c20
+NPU_LOG: [DEVICE][vpu_device_context.cpp:201] Submit VPUCommandBuffer: 0x60aef4889390, params -> engine: 0, flags: 0, offset: 0, count: 20, ptr: 0x60aef48a19c0, prior: 2
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_SUBMIT
+NPU_LOG: [DEVICE][vpu_device_context.cpp:253] Buffer execution successfully triggered
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:187] VPUJob 0x60aef4846bd0 submitted
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:208] CommandQueue synchronize - 0x60aef4847c20
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_IVPU_BO_WAIT
+NPU_LOG: [VPU_CMD][vpu_command_buffer.cpp:239] Wait completed: ret = 0, errno = 2, commandBuffer: 0x60aef4889390
+NPU_LOG: [VPU_JOB][vpu_job.cpp:120] Compute command buffer (0x60aef4889390): execution is completed with success
+Inference #2 took: 0.190085 ms
+
+The duration of the VPU wakeup to be able to run the inference: 1.559566 ms
+NPU_LOG: [GRAPH][graph.cpp:84] Graph destroyed - 0x60aef4838800
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef4876930, cpu: 0x785bc719f000, vpu: 0x200000000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef4880760, cpu: 0x785bc719e000, vpu: 0x200001000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef4889230, cpu: 0x785bc719d000, vpu: 0x200002000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef48892e0, cpu: 0x785bc719c000, vpu: 0x200003000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bbe989000, vpu: 0x80006000, size: 384
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef4889460, cpu: 0x785bbe989000, vpu: 0x80006000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc719b000, vpu: 0x200004000, size: 0
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef4889960, cpu: 0x785bc719b000, vpu: 0x200004000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc719a000, vpu: 0x80000000, size: 2432
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef4889ff0, cpu: 0x785bc719a000, vpu: 0x80000000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc7199000, vpu: 0x80001000, size: 120
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef488a070, cpu: 0x785bc7199000, vpu: 0x80001000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc7198000, vpu: 0x200005000, size: 704
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489d100, cpu: 0x785bc7198000, vpu: 0x200005000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc7197000, vpu: 0x200006000, size: 704
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489d5a0, cpu: 0x785bc7197000, vpu: 0x200006000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc5c2c000, vpu: 0x200007000, size: 704
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489da40, cpu: 0x785bc5c2c000, vpu: 0x200007000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc55d7000, vpu: 0x200008000, size: 704
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489dee0, cpu: 0x785bc55d7000, vpu: 0x200008000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc1d08000, vpu: 0x200009000, size: 448
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489e070, cpu: 0x785bc1d08000, vpu: 0x200009000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bc03c2000, vpu: 0x20000a000, size: 448
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489e200, cpu: 0x785bc03c2000, vpu: 0x20000a000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bbe98f000, vpu: 0x20000b000, size: 448
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489e390, cpu: 0x785bbe98f000, vpu: 0x20000b000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bbe98e000, vpu: 0x20000c000, size: 448
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489e520, cpu: 0x785bbe98e000, vpu: 0x20000c000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bbe98d000, vpu: 0x80002000, size: 2688
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489f180, cpu: 0x785bbe98d000, vpu: 0x80002000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bbe98c000, vpu: 0x80003000, size: 224
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489f460, cpu: 0x785bbe98c000, vpu: 0x80003000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bbe98b000, vpu: 0x80004000, size: 384
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489f7c0, cpu: 0x785bbe98b000, vpu: 0x80004000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [GRAPH][elf_parser.cpp:92] Deallocate: cpu: 0x785bbe98a000, vpu: 0x80005000, size: 20
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef489f890, cpu: 0x785bbe98a000, vpu: 0x80005000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [DEVICE][vpu_device_context.cpp:119] Free BO: 0x60aef48a1b50, cpu: 0x785bbe988000, vpu: 0x80007000
+NPU_LOG: [IOCTL][vpu_driver_api.cpp:90] DRM_IOCTL_GEM_CLOSE
+NPU_LOG: [CMDLIST][cmdlist.cpp:102] CommandList destroyed
+NPU_LOG: [CMDQUEUE][cmdqueue.cpp:97] CommandQueue destroyed - 0x60aef4847c20
+[       OK ] InferencePerformance.MeasureTimeBetweenTwoInferencesAfterPutVPUInIdleState/add_abc (1005 ms)
+[----------] 1 test from InferencePerformance (1005 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1018 ms total)
+[  PASSED  ] 1 test.
