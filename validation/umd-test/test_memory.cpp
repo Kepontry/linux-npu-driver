@@ -204,6 +204,26 @@ TEST_P(MemoryExecution, ExecuteTimestampCommandInMemoryLowRange) {
     EXPECT_NE(*ts, 0llu) << "Timestamp should be different from 0";
 }
 
+TEST_P(MemoryExecution, ExecuteMultiTimestampCommand) {
+    size_t size = GetParam();
+
+    auto mem = AllocSharedMemory(size);
+    ASSERT_TRUE(mem.get()) << "Failed to allocate shared memory";
+
+    uint64_t *ts = static_cast<uint64_t *>(mem.get());
+    for (int i = 0; i < 10; i++) {
+        ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts+i, nullptr, 0, nullptr),
+                  ZE_RESULT_SUCCESS);
+    }
+    // ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts, nullptr, 0, nullptr),
+            //   ZE_RESULT_SUCCESS);
+    ASSERT_EQ(zeCommandListClose(list), ZE_RESULT_SUCCESS);
+
+    ASSERT_EQ(zeCommandQueueExecuteCommandLists(queue, 1, &list, nullptr), ZE_RESULT_SUCCESS);
+    ASSERT_EQ(zeCommandQueueSynchronize(queue, syncTimeout), ZE_RESULT_SUCCESS);
+    EXPECT_NE(*ts, 0llu) << "Timestamp should be different from 0";
+}
+
 TEST_P(MemoryExecution, ExecuteCopyCommandInMemoryLowRange) {
     size_t size = GetParam();
 
