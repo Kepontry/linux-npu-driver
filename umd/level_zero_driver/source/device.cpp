@@ -507,7 +507,9 @@ ze_result_t Device::getGlobalTimestamps(uint64_t *hostTimestamp, uint64_t *devic
         return ret;
 
     const auto &hwInfo = vpuDevice->getHwInfo();
-    *deviceTimestamp = (*ts) * (NS_IN_SEC / hwInfo.timerResolution);
+    *deviceTimestamp = (*ts);
+    printf("NS_IN_SEC %d %ld\n", NS_IN_SEC, hwInfo.timerResolution);
+    // *deviceTimestamp = (*ts) * (NS_IN_SEC / hwInfo.timerResolution);
     auto timestampNs = std::chrono::duration_cast<std::chrono::nanoseconds>(
         std::chrono::steady_clock::now().time_since_epoch());
     *hostTimestamp = static_cast<uint64_t>(timestampNs.count());

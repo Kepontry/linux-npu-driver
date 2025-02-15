@@ -208,20 +208,35 @@ TEST_P(MemoryExecution, ExecuteMultiTimestampCommand) {
     size_t size = GetParam();
 
     auto mem = AllocSharedMemory(size);
+    // auto mem = AllocDeviceMemory(size);
     ASSERT_TRUE(mem.get()) << "Failed to allocate shared memory";
 
     uint64_t *ts = static_cast<uint64_t *>(mem.get());
-    for (int i = 0; i < 10; i++) {
-        ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts+i, nullptr, 0, nullptr),
+    uint64_t hostTimestamp0 = 0, deviceTimestamp0 = 0;
+    uint64_t hostTimestamp1 = 0, deviceTimestamp1 = 0;
+    for (int i = 0; i < 11; i++) {
+    // for (int i = 0; i < 1; i++) {
+        // ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts+i, nullptr, 0, nullptr),
+                //   ZE_RESULT_SUCCESS);
+        using namespace std::chrono_literals;
+        hostTimestamp0 = hostTimestamp1, deviceTimestamp0 = deviceTimestamp1;
+        std::this_thread::sleep_for(1s);
+        EXPECT_EQ(zeDeviceGetGlobalTimestamps(zeDevice, &hostTimestamp1, &deviceTimestamp1),
                   ZE_RESULT_SUCCESS);
+        printf("hostTimestamp1: %ld, deviceTimestamp1: %ld\n", hostTimestamp1-hostTimestamp0, deviceTimestamp1-deviceTimestamp0);
     }
-    // ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts, nullptr, 0, nullptr),
-            //   ZE_RESULT_SUCCESS);
+    ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts, nullptr, 0, nullptr),
+              ZE_RESULT_SUCCESS);
     ASSERT_EQ(zeCommandListClose(list), ZE_RESULT_SUCCESS);
 
     ASSERT_EQ(zeCommandQueueExecuteCommandLists(queue, 1, &list, nullptr), ZE_RESULT_SUCCESS);
     ASSERT_EQ(zeCommandQueueSynchronize(queue, syncTimeout), ZE_RESULT_SUCCESS);
     EXPECT_NE(*ts, 0llu) << "Timestamp should be different from 0";
+    uint64_t base_time_stamp = *ts;
+    for (int i = 1; i < 11; i++){
+        printf("TimeStamp: %ld\n", *(ts+i) - base_time_stamp);
+        base_time_stamp = *(ts+i);
+    }
 }
 
 TEST_P(MemoryExecution, ExecuteCopyCommandInMemoryLowRange) {

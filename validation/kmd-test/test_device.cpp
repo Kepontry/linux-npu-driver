@@ -95,17 +95,21 @@ TEST_F(Device, GetDeviceParams) {
     uint64_t value;
 
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_DEVICE_ID, &value), 0);
+    printf("DRM_IVPU_PARAM_DEVICE_ID: %ld\n", value);
     EXPECT_TRUE(test_app::is_vpu(value));
 
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_PLATFORM_TYPE, &value), 0);
     EXPECT_LT(value, 8); // see ivpu_drv.h
 
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_NUM_CONTEXTS, &value), 0);
+    printf("DRM_IVPU_PARAM_NUM_CONTEXTS: %ld\n", value);
     EXPECT_GT(value, 0);
 
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_DEVICE_REVISION, &value), 0);
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_CORE_CLOCK_RATE, &value), 0);
+    printf("DRM_IVPU_PARAM_CORE_CLOCK_RATE: %ld\n", value);
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_CONTEXT_BASE_ADDRESS, &value), 0);
+    printf("DRM_IVPU_PARAM_CONTEXT_BASE_ADDRESS: %lx\n", value);
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_CONTEXT_ID, &value), 0);
     EXPECT_EQ(get_param(DRM_IVPU_PARAM_FW_API_VERSION, &value), 0);
 }
