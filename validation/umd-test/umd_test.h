@@ -27,6 +27,8 @@
 // Custom printer to dump ze_result_t as hex string
 void PrintTo(const ze_result_t &result, std::ostream *os);
 
+#define NEW_TS(ts) (reinterpret_cast<uint64_t *>(*(ts)))
+
 #define SKIP_(msg)                      \
     if (!test_app::run_skipped_tests) { \
         GTEST_SKIP_(msg);               \

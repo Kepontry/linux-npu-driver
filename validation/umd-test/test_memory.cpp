@@ -204,7 +204,7 @@ TEST_P(MemoryExecution, ExecuteTimestampCommandInMemoryLowRange) {
     EXPECT_NE(*ts, 0llu) << "Timestamp should be different from 0";
 }
 
-TEST_P(MemoryExecution, ExecuteMultiTimestampCommand) {
+TEST_P(MemoryExecution, ExecuteAlignedTimestampCommand) {
     size_t size = GetParam();
 
     auto mem = AllocSharedMemory(size);
@@ -236,6 +236,76 @@ TEST_P(MemoryExecution, ExecuteMultiTimestampCommand) {
     for (int i = 1; i < 11; i++){
         printf("TimeStamp: %ld\n", *(ts+i) - base_time_stamp);
         base_time_stamp = *(ts+i);
+    }
+}
+
+TEST_P(MemoryExecution, ExecuteMultiTimestampCommand) {
+    size_t size = GetParam();
+
+    auto mem = AllocSharedMemory(size);
+    // auto mem = AllocDeviceMemory(size);
+    ASSERT_TRUE(mem.get()) << "Failed to allocate shared memory";
+
+    uint64_t *ts = static_cast<uint64_t *>(mem.get());
+    for (int i = 0; i < 11; i++) {
+    // for (int i = 0; i < 1; i++) {
+        ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts+i, nullptr, 0, nullptr),
+                  ZE_RESULT_SUCCESS);
+    }
+    ASSERT_EQ(zeCommandListClose(list), ZE_RESULT_SUCCESS);
+
+    ASSERT_EQ(zeCommandQueueExecuteCommandLists(queue, 1, &list, nullptr), ZE_RESULT_SUCCESS);
+    ASSERT_EQ(zeCommandQueueSynchronize(queue, syncTimeout), ZE_RESULT_SUCCESS);
+    EXPECT_NE(*ts, 0llu) << "Timestamp should be different from 0";
+    // uint64_t base_time_stamp = *ts;
+    uint64_t base_time_stamp = 0;
+    uint64_t now_time_stamp = 0;
+    uint64_t internal_bo_addr = 0;
+    for (int i = 1; i < 11; i++){
+        internal_bo_addr = *(ts+i);
+        printf("Internal BO addr: %lx\n", internal_bo_addr);
+        now_time_stamp = *(reinterpret_cast<uint64_t *>(internal_bo_addr));
+        printf("TimeStamp: %ld, Delta: %ld\n", now_time_stamp, now_time_stamp - base_time_stamp);
+        base_time_stamp = now_time_stamp;
+    }
+}
+
+TEST_P(MemoryExecution, ExecuteAligned2TimestampCommand) {
+    size_t size = GetParam();
+
+
+    uint64_t base_device_time_stamp = 0;
+    uint64_t base_host_time_stamp = 0;
+    for (int i = 1; i < 11; i++){
+        auto mem = AllocSharedMemory(size);
+        // auto mem = AllocDeviceMemory(size);
+        ASSERT_TRUE(mem.get()) << "Failed to allocate shared memory";
+
+        uint64_t *ts = static_cast<uint64_t *>(mem.get());
+        // for (int i = 0; i < 11; i++) {
+        ASSERT_EQ(zeCommandListAppendWriteGlobalTimestamp(list, ts+i, nullptr, 0, nullptr),
+                ZE_RESULT_SUCCESS);
+        ASSERT_EQ(zeCommandListClose(list), ZE_RESULT_SUCCESS);
+
+        ASSERT_EQ(zeCommandQueueExecuteCommandLists(queue, 1, &list, nullptr), ZE_RESULT_SUCCESS);
+        ASSERT_EQ(zeCommandQueueSynchronize(queue, syncTimeout), ZE_RESULT_SUCCESS);
+        // uint64_t base_time_stamp = *ts;
+        uint64_t now_device_time_stamp = 0;
+        uint64_t internal_bo_addr = 0;
+        internal_bo_addr = *(ts+i);
+        printf("Internal BO addr: %lx\n", internal_bo_addr);
+        now_device_time_stamp = *(reinterpret_cast<uint64_t *>(internal_bo_addr));
+        printf("Device TimeStamp: %ld, Delta: %ld\n", now_device_time_stamp, now_device_time_stamp - base_device_time_stamp);
+        base_device_time_stamp = now_device_time_stamp;
+
+        uint64_t now_host_time_stamp = 0;
+        auto timestampNs = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now().time_since_epoch());
+        now_host_time_stamp = static_cast<uint64_t>(timestampNs.count());
+        printf("Host TimeStamp: %ld, Delta: %ld\n", now_host_time_stamp, now_host_time_stamp - base_host_time_stamp);
+        base_host_time_stamp = now_device_time_stamp;
+        using namespace std::chrono_literals;
+        std::this_thread::sleep_for(1s);
     }
 }
 

@@ -405,13 +405,14 @@ ze_result_t CommandList::appendWriteGlobalTimestamp(uint64_t *dstptr,
     if (result != ZE_RESULT_SUCCESS)
         return result;
 
-    result = appendCommand<VPU::VPUCopyCommand>(ctx,
-                                                allignedBo->getBasePointer(),
-                                                dstptr,
-                                                sizeof(uint64_t));
-    if (result != ZE_RESULT_SUCCESS)
-        return result;
+    // result = appendCommand<VPU::VPUCopyCommand>(ctx,
+    //                                             allignedBo->getBasePointer(),
+    //                                             dstptr,
+    //                                             sizeof(uint64_t));
+    // if (result != ZE_RESULT_SUCCESS)
+    //     return result;
 
+    *dstptr = reinterpret_cast<uint64_t>(allignedBo->getBasePointer());
     if (hSignalEvent != nullptr) {
         result = appendSignalEvent(hSignalEvent);
         if (result != ZE_RESULT_SUCCESS) {
